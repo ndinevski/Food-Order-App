@@ -16,14 +16,14 @@ import CartItem from './CartItem';
 import CheckoutForm from './CheckoutForm';
 
 import {cartActions} from '../store/cart-redux';
-
+import {RootState} from '../store/index';
 
 
 export default function Cart () {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useDispatch();
-    const cart = useSelector((state)=>state.cart);
-    const meals = useSelector((state)=>state.meals.meals);
+    const cart = useSelector((state: RootState)=>state.cart);
+    const meals = useSelector((state: RootState)=>state.meals.meals);
 
     const handleCartOpen = () => {
         dispatch(cartActions.toggleCart());
@@ -62,7 +62,7 @@ export default function Cart () {
                     marginLeft: '10px',
                     borderTop: '1px solid #ccc',
                     marginRight: '10px',
-                }}><div>${Math.abs(cart.totalPrice.toFixed(2))}</div></div>
+                }}><div>${Math.abs(Number(cart.totalPrice.toFixed(2)))}</div></div>
                 <ModalFooter>
                     <Button variant="ghost" onClick={handleCartClose}>
                     Close

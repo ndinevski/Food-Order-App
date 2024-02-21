@@ -22,12 +22,14 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { postOrderData } from "../store/meals-redux";
 import { cartActions } from "../store/cart-redux";
+import {Customer } from "../types/types";
+import { AppDispatch, RootState } from '../store/index';
 
-export default function CheckoutForm({ handleCartClose }) {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
+export default function CheckoutForm({ handleCartClose}: any) {
+  const dispatch: AppDispatch = useDispatch();
+  const cart = useSelector((state: RootState) => state.cart);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [input, setInput] = useState({
+  const [input, setInput] = useState<Customer>({
     name: "",
     email: "",
     street: "",
@@ -43,14 +45,14 @@ export default function CheckoutForm({ handleCartClose }) {
   const isError =
     isNameError || isMailError || isAddressError || isZipError || isCityError;
 
-  const handleInputChange = (value, type) => {
+  const handleInputChange = (value: string, type: string) => {
     setInput({ ...input, [type]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e : React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
-    dispatch(postOrderData(cart, input));
+    dispatch(postOrderData(cart.cart, input));
   };
 
   const handleOpenForm = () => {

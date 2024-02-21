@@ -1,6 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit';
+import {CartRedux} from '../types/types'
 
-const initialState = {
+
+const initialState: CartRedux = {
     cart: [],
     totalQuantity: 0,
     totalPrice: 0,
@@ -31,14 +33,15 @@ const cartSlice = createSlice({
         removeMeal: (state, action) => {
             const existingMeal = state.cart.find((meal)=> meal.id === action.payload.id);
 
-            if(existingMeal.quantity > 1){
-                existingMeal.quantity--;
-            }else{
-                state.cart = state.cart.filter((meal)=> meal.id !== action.payload.id);
+            if(existingMeal){
+                if(existingMeal.quantity > 1){
+                    existingMeal.quantity--;
+                }else{
+                    state.cart = state.cart.filter((meal)=> meal.id !== action.payload.id);
+                }
+                state.totalQuantity--;
+                state.totalPrice -= Number(action.payload.price);
             }
-
-            state.totalQuantity--;
-            state.totalPrice -= Number(action.payload.price);
         },
         toggleCart: (state) => {
             state.isOpen = !state.isOpen;
@@ -53,6 +56,6 @@ const cartSlice = createSlice({
 });
 
 
-  export const cartActions = cartSlice.actions;
+export const cartActions = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,7 +1,8 @@
 import {useDispatch} from 'react-redux';
 import {cartActions} from '../store/cart-redux';
+import { Meal } from '../types/types';
 
-export default function CartItem ({meal}){
+export default function CartItem ({meal} : {meal : Meal}){
     const previewName = `${meal.name} - ${meal.quantity} x $${meal.price}`;
     const dispatch = useDispatch();
 

@@ -1,7 +1,16 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {cartActions} from './cart-redux';
+import {Meal, Order, Customer} from '../types/types';
 
-const initialState = {
+
+export type MealsStore = {
+    meals: Meal[],
+    orders: Order[],
+    isLoading: boolean,
+};
+
+
+const initialState: MealsStore = {
     meals: [],
     orders: [],
     isLoading: false,
@@ -17,8 +26,8 @@ const mealsSlice = createSlice({
     },
 });
 
-export const postOrderData = ( items, customer ) => {
-    return async (dispatch) => {
+export const postOrderData = ( items: Meal[], customer: Customer ) => {
+    return async (dispatch: any) => {
         dispatch(cartActions.toggleFormLoading());
         const postData = async () => {
             
@@ -52,7 +61,7 @@ export const postOrderData = ( items, customer ) => {
 };
 
 export const fetchMealData = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         const fetchData = async () => {
             const response = await fetch('http://127.0.0.1:3000/meals');
             

@@ -1,7 +1,12 @@
 import {useDispatch} from 'react-redux';
 import {cartActions} from '../store/cart-redux';
+import {Meal} from '../types/types';
 
-export default function Meal ({meal}) {
+type Props = {
+    meal : Meal,
+};
+
+export default function MealItem ({meal} : Props) {
     const dispatch = useDispatch();
 
     const handleAddToCart = () => {

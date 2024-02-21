@@ -93,7 +93,7 @@ h1 {
   margin: 1rem;
   text-overflow: ellipsis;
   overflow: hidden;
-  max-height: 57px;
+  max-height: 157px;
 }
 
 .meal-item-price {
