@@ -2,8 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: food-app-deployment
+  labels:
+    app: food-app
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: food-app
@@ -13,11 +15,10 @@ spec:
         app: food-app
     spec:
       containers:
-        - name: food-app
-          image: ndinevski/food-app:latest
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
-          ports:
-            - containerPort: 8080
+      - name: food-app
+        image: ndinevski/food-app:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODE_ENV
+          value: "production"
