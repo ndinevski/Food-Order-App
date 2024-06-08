@@ -31,7 +31,7 @@ export const postOrderData = ( items: Meal[], customer: Customer ) => {
         dispatch(cartActions.toggleFormLoading());
         const postData = async () => {
             
-            const response = await fetch('http://127.0.0.1:3000/api/orders', {
+            const response = await fetch('http://a694cc32806b74f5784af35ee582a295-1252206997.eu-west-1.elb.amazonaws.com/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export const postOrderData = ( items: Meal[], customer: Customer ) => {
 export const fetchMealData = () => {
     return async (dispatch: any) => {
         const fetchData = async () => {
-            const response = await fetch('http://127.0.0.1:3000/api/meals');
+            const response = await fetch('http://a694cc32806b74f5784af35ee582a295-1252206997.eu-west-1.elb.amazonaws.com/api/meals');
             
             if (!response.ok){
                 throw new Error(response.statusText);
