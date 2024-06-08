@@ -17,13 +17,15 @@ app.use((req, res, next) => {
 });
 
 app.get('/meals', async (req, res) => {
-  try {
-    const result = await db.query('SELECT * FROM meals');
-    const meals = result.rows;
-    res.json(meals);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  // try {
+  //   const result = await db.query('SELECT * FROM meals');
+  //   const meals = result.rows;
+  //   res.json(meals);
+  // } catch (error) {
+  //   res.status(500).json({ error: 'Internal Server Error' });
+  // }
+  const meals = await fs.readFile('./data/available-meals.json', 'utf8');
+  res.json(JSON.parse(meals));
 });
 
 
@@ -54,32 +56,37 @@ app.post('/orders', async (req, res) => {
     });
   }
 
-  const calculateTotalPrice = (items) => {
-    return items.reduce((total, item) => {
-      return total + parseFloat(item.price) * item.quantity;
-    }, 0).toFixed(2);
-  };
+  // const calculateTotalPrice = (items) => {
+  //   return items.reduce((total, item) => {
+  //     return total + parseFloat(item.price) * item.quantity;
+  //   }, 0).toFixed(2);
+  // };
   
-  const totalPrice = calculateTotalPrice(orderData.items);
+  // const totalPrice = calculateTotalPrice(orderData.items);
 
+  // const query = `
+  //   INSERT INTO orders (name, email, meals, total)
+  //   VALUES ($1, $2, $3, $4)
+  // `;
+  // const foodItems = orderData.items.map((item) => {
+  //   return item.id;
+  // })
+
+  // const values = [orderData.customer.name, orderData.customer.email, foodItems, totalPrice];
+
+  // await db.query(query, values);
+
+  // res.status(201).json({ message: 'Meal added successfully' });
   const newOrder = {
     ...orderData,
     id: (Math.random() * 1000).toString(),
   };
+  const orders = await fs.readFile('./data/orders.json', 'utf8');
+  const allOrders = JSON.parse(orders);
+  allOrders.push(newOrder);
+  await fs.writeFile('./data/orders.json', JSON.stringify(allOrders));
+  res.status(201).json({ message: 'Order created!' });
 
-  const query = `
-    INSERT INTO orders (name, email, meals, total)
-    VALUES ($1, $2, $3, $4)
-  `;
-  const foodItems = orderData.items.map((item) => {
-    return item.id;
-  })
-
-  const values = [orderData.customer.name, orderData.customer.email, foodItems, totalPrice];
-
-  await db.query(query, values);
-
-  res.status(201).json({ message: 'Meal added successfully' });
 });
 
 app.use((req, res) => {
