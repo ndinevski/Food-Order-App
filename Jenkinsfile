@@ -27,13 +27,6 @@ pipeline {
             }
         }
         
-        
-        stage('Archive Artifacts') {
-            steps {
-                archiveArtifacts artifacts: 'build/**/*', allowEmptyArchive: true
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -45,7 +38,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', "${env.DOCKERHUB_CREDENTIALS_ID}") {
+                    docker.withRegistry('https://registry.hub.docker.com', "${env.DOCKERHUB_CREDENTIALS_ID}") {
                         docker.image("${env.DOCKER_IMAGE}:latest").push()
                     }
                 }
