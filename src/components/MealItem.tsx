@@ -21,7 +21,7 @@ export default function MealItem ({meal} : Props) {
                 <p className="meal-item-description">{meal.description}</p>
                 <p className="meal-item-price">$ {meal.price}</p>
             </article>
-            <button className="button meal-item-actions" onClick={handleAddToCart}>Add to Cart</button>
+            <button className="button meal-item-actions" onClick={handleAddToCart}>Add to Carts</button>
         </div>
     );
 }   
