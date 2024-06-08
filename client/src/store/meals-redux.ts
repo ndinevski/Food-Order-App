@@ -31,7 +31,7 @@ export const postOrderData = ( items: Meal[], customer: Customer ) => {
         dispatch(cartActions.toggleFormLoading());
         const postData = async () => {
             
-            const response = await fetch('http://127.0.0.1:3000/orders', {
+            const response = await fetch('http://127.0.0.1:3000/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export const postOrderData = ( items: Meal[], customer: Customer ) => {
 export const fetchMealData = () => {
     return async (dispatch: any) => {
         const fetchData = async () => {
-            const response = await fetch('http://127.0.0.1:3000/meals');
+            const response = await fetch('http://127.0.0.1:3000/api/meals');
             
             if (!response.ok){
                 throw new Error(response.statusText);

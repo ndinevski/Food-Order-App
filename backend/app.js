@@ -2,12 +2,15 @@ import fs from 'node:fs/promises';
 
 import bodyParser from 'body-parser';
 import express from 'express';
+import path from 'path';
 import db from './db.cjs';
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(express.static(path.join('dist')));
+
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -16,7 +19,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/meals', async (req, res) => {
+app.get('/api/meals', async (req, res) => {
   // try {
   //   const result = await db.query('SELECT * FROM meals');
   //   const meals = result.rows;
@@ -29,7 +32,7 @@ app.get('/meals', async (req, res) => {
 });
 
 
-app.post('/orders', async (req, res) => {
+app.post('/api/orders', async (req, res) => {
   const orderData = req.body.order;
 
   if (orderData === null || orderData.items === null || orderData.items === []) {
@@ -55,6 +58,7 @@ app.post('/orders', async (req, res) => {
         'Missing data: Email, name, street, postal code or city is missing.',
     });
   }
+  
 
   // const calculateTotalPrice = (items) => {
   //   return items.reduce((total, item) => {
@@ -87,6 +91,10 @@ app.post('/orders', async (req, res) => {
   await fs.writeFile('./data/orders.json', JSON.stringify(allOrders));
   res.status(201).json({ message: 'Order created!' });
 
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('dist', 'index.html'));
 });
 
 app.use((req, res) => {
