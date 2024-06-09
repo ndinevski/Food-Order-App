@@ -49,15 +49,17 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sed -i 's|image: ${env.DOCKER_IMAGE}:.*|image: ${env.DOCKER_IMAGE}:${env.BUILD_ID}|' deployment.yaml
+                    #!/bin/bash
+                    sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${BUILD_ID}|" deployment.yaml
                     '''
 
                     sh '''
+                    #!/bin/bash
                     git config user.email "ndinevski5@gmail.com"
                     git config user.name "ndinevski"
                     git add deployment.yaml
-                    git commit -m "Update image tag to ${env.BUILD_ID}"
-                    git push origin HEAD:master
+                    git commit -m "Update image tag to ${BUILD_ID}"
+                    git push origin HEAD:main
                     '''
                 }
             }
