@@ -15,7 +15,7 @@ export default function MealItem ({meal} : Props) {
 
     return (
         <div className="meal-item">
-            <img src={'http://localhost:3000/' + meal.image}></img>
+            <img src={'http://ac996afac4df043a3b18e70818592a83-1002123798.eu-west-1.elb.amazonaws.com/' + meal.image}></img>
             <h3>{meal.name}</h3>
             <article>
                 <p className="meal-item-description">{meal.description}</p>
