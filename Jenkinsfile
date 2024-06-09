@@ -61,7 +61,7 @@ pipeline {
                         git config user.name "ndinevski"
                         git add deployment.yaml
                         git commit -m "Update image tag to ${BUILD_ID}"
-                        git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/ndinevski/Food-Order-App.git HEAD:main
+                        git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/ndinevski/Food-Order-App.git HEAD:master
                         '''
                     }
                 }
