@@ -32,6 +32,7 @@ pipeline {
             steps {
                 script {
                     docker.build("${env.DOCKER_IMAGE}:latest")
+                    docker.build("${env.DOCKER_IMAGE}:${env.BUILD_ID}")
                 }
             }
         }
@@ -40,6 +41,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', "${env.DOCKERHUB_CREDENTIALS_ID}") {
+                        docker.image("${env.DOCKER_IMAGE}:${env.BUILD_ID}").push
                         docker.image("${env.DOCKER_IMAGE}:latest").push()
                     }
                 }
@@ -60,7 +62,7 @@ pipeline {
                         git config user.email "ndinevski5@gmail.com"
                         git config user.name "ndinevski"
                         git add deployment.yaml
-                        git commit -m "Update image tag to ${BUILD_ID}"
+                        git commit -m "Update image tag to ${BUILD_ID}" 
                         git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/ndinevski/Food-Order-App.git HEAD:master
                         '''
                     }
