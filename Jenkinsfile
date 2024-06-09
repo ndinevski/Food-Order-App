@@ -54,7 +54,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: "${GITHUB_CREDENTIALS_ID}", usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
                         sh '''
                         #!/bin/bash
-                        git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@${GITOPS_REPO_URL}
+                        git clone ${GITHUB_USER}:${GITHUB_TOKEN}@${GITOPS_REPO_URL}
                         cd GitOps-Food-App
                         sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${BUILD_ID}|" deployment.yaml
                         git config user.email "ndinevski5@gmail.com"
