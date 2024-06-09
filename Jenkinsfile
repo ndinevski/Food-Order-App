@@ -4,7 +4,6 @@ pipeline {
     environment {
         DOCKERHUB_CREDENTIALS_ID = 'dockerhub'
         DOCKER_IMAGE = 'ndinevski/food-app'
-        DOCKER_BUILDKIT = '1'
         NODE_VERSION = '18.17.1'
     }
     
