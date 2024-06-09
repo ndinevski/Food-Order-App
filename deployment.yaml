@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: food-app
-        image: ndinevski/food-app:25
+        image: ndinevski/food-app:26
         ports:
         - containerPort: 3000
         env:
