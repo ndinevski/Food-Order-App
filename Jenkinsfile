@@ -5,6 +5,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS_ID = 'dockerhub'
         DOCKER_IMAGE = 'ndinevski/food-app'
         GITHUB_CREDENTIALS_ID = 'github'
+        GITOPS_REPO_URL = 'https://github.com/ndinevski/GitOps-Food-App.git'
         NODE_VERSION = '18.17.1'
     }
     
@@ -47,22 +48,20 @@ pipeline {
             }
         }
 
-         stage('Update Kubernetes Manifests') {
+         stage('Update GitOps Repository Manifests') {
             steps {
                 script {
-                    sh '''
-                    #!/bin/bash
-                    sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${BUILD_ID}|" deployment.yaml
-                    '''
-
                     withCredentials([usernamePassword(credentialsId: "${GITHUB_CREDENTIALS_ID}", usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
                         sh '''
                         #!/bin/bash
+                        git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@${GITOPS_REPO_URL}
+                        cd GitOps-Food-App
+                        sed -i "s|image: ${DOCKER_IMAGE}:.*|image: ${DOCKER_IMAGE}:${BUILD_ID}|" deployment.yaml
                         git config user.email "ndinevski5@gmail.com"
                         git config user.name "ndinevski"
                         git add deployment.yaml
-                        git commit -m "Update image tag to ${BUILD_ID}" 
-                        git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/ndinevski/Food-Order-App.git HEAD:master
+                        git commit -m "Update image tag to ${BUILD_ID}"
+                        git push https://${GITHUB_USER}:${GITHUB_TOKEN}@${GITOPS_REPO_URL} HEAD:master
                         '''
                     }
                 }
