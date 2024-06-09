@@ -31,7 +31,7 @@ export const postOrderData = ( items: Meal[], customer: Customer ) => {
         dispatch(cartActions.toggleFormLoading());
         const postData = async () => {
             
-            const response = await fetch('http://ac996afac4df043a3b18e70818592a83-1002123798.eu-west-1.elb.amazonaws.com/api/orders', {
+            const response = await fetch('http://a86d7620a7faf4f13b6105d7795aefb9-71443352.eu-west-1.elb.amazonaws.com/api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ export const postOrderData = ( items: Meal[], customer: Customer ) => {
 export const fetchMealData = () => {
     return async (dispatch: any) => {
         const fetchData = async () => {
-            const response = await fetch('http://ac996afac4df043a3b18e70818592a83-1002123798.eu-west-1.elb.amazonaws.com/api/meals');
+            const response = await fetch('http://a86d7620a7faf4f13b6105d7795aefb9-71443352.eu-west-1.elb.amazonaws.com/api/meals');
             
             if (!response.ok){
                 throw new Error(response.statusText);
