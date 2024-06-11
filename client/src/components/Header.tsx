@@ -6,7 +6,7 @@ export default function Header () {
         <header id="main-header">
             <div id="title">
                 <img src="logo.jpg" alt="React Food App logo" />
-                <h1>FOOD ORDERS APP</h1>
+                <h1>FOODAPP</h1>
             </div>
             <Cart/>
         </header>
