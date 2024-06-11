@@ -26,4 +26,6 @@ This project represents a comprehensive end-to-end DevOps process for a food ord
 - **EKS Cluster:** Consists of 3 node groups, each on separate EC2 machines.
 - **ArgoCD:** Deployed on the EKS cluster to manage continuous deployments.
 
-This DevOps process ensures a seamless flow of code from development to production, enabling fast and reliable releases of new application versions.
+This DevOps process ensures a seamless flow of code from development to production, enabling fast and reliable releases of new application versions.\
+
+![image](https://github.com/ndinevski/Food-Order-App/assets/61565298/9213c882-ae70-4a7d-a2ac-d54df70d9313)
